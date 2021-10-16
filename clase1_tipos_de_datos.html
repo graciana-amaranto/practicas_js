@@ -1,0 +1,115 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementos basicos</title>
+</head>
+<body>
+    <h1>Fundamentos de JavaScript</h1>
+
+    <script>
+
+        /* como practica general, para declarar debo usar
+        para identificadores: la letra o, $, _
+        para nombres de archivos: snake_case
+        para constantes: UPPER_CASE
+        clases: UpperCamelCase
+        objetos, primitivos funciones e instancias: lowerCamelCase
+        
+        ordenamiento de codigo:
+        1.IMPORTACIÓN DE MÓDULOS.
+        2.DECLARACIÓN DE VARIABLES.
+        3.DECLARACIÓN DE FUNCIONES.
+        4.EJECUCIÓN DE CÓDIGO.
+
+        Primitivos: Se accede directamente al valor.
+        string
+        number
+        boolean
+        null
+        undefined
+        NaN
+
+        Compuestos: Se accede a la referencia del valor.
+        object = {}
+        array = []
+        function () { }
+        Class {}
+        etc.
+        */
+
+        //clase 1: Tipos de datos
+        
+        //var vs let
+        var musica = "rock"; //scope global, mala practica
+
+        let musica2 = "rock";
+        console.log("variable musica antes del bloque", musica2);
+        {
+            let musica2 = "pop"; //let respeta los scopes, genera variables de bloque
+            console.log("variable musica dentro del bloque", musica2); //muestra pop
+        }
+        console.log("variable musica despues del bloque", musica2); //muestra rock
+
+        //const
+        const PI = 13.1416; //accedo al valor directamente, no puedo cambiarlo
+        //PI = 15; asignar un nuevo valor a pi sería un error
+
+        const objeto = {
+            nombre: "graciana",
+            edad: "25"
+        }
+        const colores = ["rojo", "negro", "azul"];
+
+        console.log(objeto);
+        console.log(colores);
+
+        objeto.apellido = "amaranto";
+        colores.push("verde");
+        
+        console.log(objeto);
+        console.log(colores);
+        // usando const no puedo cambiar los valores de datos PRIMITIVOS, pero si de datos COMPUESTOS.
+        //esto es por que sigue siendo una constante (es el mismo objeto y el mismo array), pero con mas propiedades.
+        
+        //strings
+        //propiedades son caracteristicas y metodos son acciones
+        let nombre = "graciana";
+        let apellido = "amarANTo";
+        let lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean venenatis dictum justo, id vestibulum nunc egestas quis. Nunc varius enim dolor. Quisque ultricies, diam ut dignissim ultricies, ex quam elementum leo, in vulputate ex neque ac erat. Integer aliquet lectus nec lacus vehicula tempus. Cras eu tristique purus."
+
+        console.log(nombre, apellido, lorem);
+        console.log(
+            nombre.length,
+            apellido.length,
+            nombre.toUpperCase,  //metodos: son las acciones que puedo hacer
+            apellido.toLowerCase,
+            lorem.includes("elit"), //busca si existe la palabra que elegi
+            lorem.trim(),  //borra los espacios al principio y al final, si los hay
+            lorem.split(",") //genera un array con un string cada vez que encuentra una coma
+        )
+        let nombre1 = "lucia";
+        let apellido1 = "rodriguez";
+
+        //concatenacion
+        let saludo = "hola, mi nombre es " + nombre1 + " " + apellido1 + ".";
+        console.log(saludo);
+
+        //interpolacion de variables: template string
+        let saludo2 = `Hola, mi nombre es ${nombre1} ${apellido1}.` //comilla invertida
+        console.log(saludo2);
+
+        let ul = `
+        <ol>
+            <li>verano</li>
+            <li>otoño</li>
+            <li>inverno</li>
+            <li>primavera</li>
+        </ol>`;
+        console.log(ul);  //puedo usarlas para strings con saltos de pagina
+
+
+    </script>
+</body>
+</html>
