@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementos basicos</title>
+</head>
+<body>
+    <h1>Fundamentos de JavaScript</h1>
+
+    <script>
+
+        /* como practica general, para declarar debo usar
+        para identificadores: la letra o, $, _
+        para nombres de archivos: snake_case
+        para constantes: UPPER_CASE
+        clases: UpperCamelCase
+        objetos, primitivos funciones e instancias: lowerCamelCase
+        
+        ordenamiento de codigo:
+        1.IMPORTACIÓN DE MÓDULOS.
+        2.DECLARACIÓN DE VARIABLES.
+        3.DECLARACIÓN DE FUNCIONES.
+        4.EJECUCIÓN DE CÓDIGO.
+
+        Primitivos: Se accede directamente al valor.
+        string
+        number
+        boolean
+        null
+        undefined
+        NaN
+
+        Compuestos: Se accede a la referencia del valor.
+        object = {}
+        array = []
+        function () { }
+        Class {}
+        etc.
+        */
+
+        //clase 1: Tipos de datos
+        
+        //var vs let
+        var musica = "rock"; //scope global, mala practica
+
+        let musica2 = "rock";
+        console.log("variable musica antes del bloque", musica2);
+        {
+            let musica2 = "pop"; //let respeta los scopes, genera variables de bloque
+            console.log("variable musica dentro del bloque", musica2); //muestra pop
+        }
+        console.log("variable musica despues del bloque", musica2); //muestra rock
+
+        //const
+        const PI = 13.1416; 
+    </script>
+</body>
+</html>
