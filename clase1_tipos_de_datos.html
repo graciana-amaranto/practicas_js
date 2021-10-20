@@ -109,6 +109,76 @@
         </ol>`;
         console.log(ul);  //puedo usarlas para strings con saltos de pagina
 
+        //numeros 
+        let c = 7.19;
+        c.toFixed(1); //7.2
+        c.toFixed(5); //7.19000
+        console.log(parseInt(c)); //7 -> toma solo el entero
+
+        //booleanos
+        let verdadero =  true;
+        let falso = false;
+         
+         //null, undefined, NaN
+        let indefinida; //undefined: no se le asigno/inicializo un valor a la variable
+        let nulo = null; //esta vacia pero intencionalmente le asigno el valor vacio
+
+        //funcion declarada
+        function unaFuncion() {
+            let h = 1;
+            let w = 2;
+            let x = w + h;
+
+            return x; 
+        }   
+        unaFuncion(); //invocacion de la funcion
+        let resultado = unaFuncion;
+
+        function saludar(nombre = "desconocido", edad = 0){  //parametros de la funcion - valores por defecto
+            console.log(`Hola mi nombre es ${nombre} y tengo ${edad} años.`);
+        }
+        saludar("leona", 7);
+
+        //funcion anonima expresada
+        const funcionExpresada = function () {
+             let funEx = "Esta es una funcion al  que se le ha asignado un valor a una variable. "
+             let funEx2 = "No puedo llamarla antes de crearla, me da error."
+        }
+        funcionExpresada();
+
+        //arrays
+        const a = [];
+        const b = [1, true, "Hola", ["A", "B", "C"]];
+
+        console.log(b.length); //tiene 4 elementos
+        console.log(b[3][2]); //accede al array dentro del array
+
+        const d = Array(100).fill(false); //crea un array de 100 elem, todos false.
+
+        const colores = ["Rojo", "Verde", "Azul"];
+        colores.push("Negro"); //agrega un elem. al array
+        colores.pop(); //quita un elem al array
+
+        colores.forEach(function (el, index){
+            console.log(`<li id="${index}">${el}</li>`) //"para cada elemento del array, agrega un <li></li> con el indice de cada elem."
+        });
+
+        //objetos
+         const miObjeto = {
+             nombre: "graciana",
+             apellido: "amaranto",
+             edad: 35,
+             pasatiempos: [1,2,3],
+             casada: false,
+             conctacto: { //objeto dentro de un objeto
+                 email: "kjfdksjf",
+                 twitter: "jfsjfs",
+                 numero: 1784121 
+             },
+             saludar: function(){
+                 let t = "hola";  //funcion dentro de un objeto
+             }
+         }
 
     </script>
 </body>
