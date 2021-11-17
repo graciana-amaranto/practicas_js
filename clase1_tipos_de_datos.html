@@ -163,11 +163,12 @@
             console.log(`<li id="${index}">${el}</li>`) //"para cada elemento del array, agrega un <li></li> con el indice de cada elem."
         });
 
-        //objetos
+        //objetos: a las variables ej:"nombre", "apellido" se les llama atributos/propiedades
+        //y a las funciones se les llama métodos. 
          const miObjeto = {
              nombre: "graciana",
              apellido: "amaranto",
-             edad: 35,
+             edad: 25,
              pasatiempos: [1,2,3],
              casada: false,
              conctacto: { //objeto dentro de un objeto
@@ -177,8 +178,22 @@
              },
              saludar: function(){
                  let t = "hola";  //funcion dentro de un objeto
+             },
+             decirMiNombre: function(){
+                 console.log(`Hola, ni nombre es ${this.nombre} ${this.apellido} y tengo ${this.edad} años.
+                 y puedes seguirme como ${this.conctacto.twitter} en twitter. ` )
              }
          }
+         console.log(miObjeto.nombre); //acceder a un atributo del objeto 
+         console.log(miObjeto.pasatiempos[1]);
+         miObjeto.decirMiNombre(); //llama la funcion dentro del objeto
+
+         console.log(Object.keys(miObjeto)); //muestra los nombres de las variables "nombre" "apellido" "edad"
+         console.log(Object.values(miObjeto)); //muestra los valores de cada variable "graciana" "amaranto" "25"
+         
+         console.log(miObjeto.hasOwnProperty("nombre")); //tiene la propiedad nombre? en consola muestra TRUE
+         console.log(miObjeto.hasOwnProperty("nacimiento")); //muestra en consola FALSE
+
 
     </script>
 </body>
