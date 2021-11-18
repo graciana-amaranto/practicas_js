@@ -4,6 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elementos basicos</title>
+    <link rel="shortcut icon" href="favicon.svg">
 </head>
 <body>
     <h1>Fundamentos de JavaScript</h1>
@@ -155,11 +156,11 @@
 
         const d = Array(100).fill(false); //crea un array de 100 elem, todos false.
 
-        const colores = ["Rojo", "Verde", "Azul"];
-        colores.push("Negro"); //agrega un elem. al array
-        colores.pop(); //quita un elem al array
+        const colores2 = ["Rojo", "Verde", "Azul"];
+        colores2.push("Negro"); //agrega un elem. al array
+        colores2.pop(); //quita un elem al array
 
-        colores.forEach(function (el, index){
+        colores2.forEach(function (el, index){
             console.log(`<li id="${index}">${el}</li>`) //"para cada elemento del array, agrega un <li></li> con el indice de cada elem."
         });
 
@@ -189,12 +190,68 @@
          miObjeto.decirMiNombre(); //llama la funcion dentro del objeto
 
          console.log(Object.keys(miObjeto)); //muestra los nombres de las variables "nombre" "apellido" "edad"
+         
+         //ciclo forin
+         for (const propiedad in miObjeto){ //"propiedad = key" este ciclo se usa para objetos especificamente
+            console.log(`Key: ${propiedad}, value: ${miObjeto[propiedad]}`) //me muestra todas las variables del objeto como Object.key y sus respectivos valores
+         }
+         
          console.log(Object.values(miObjeto)); //muestra los valores de cada variable "graciana" "amaranto" "25"
          
+         //ciclo forof
+         for (const elemento of b) {  //b es un array, este ciclo sirve para recorrer arrays o cadenas de strings
+             console.log(elemento);    //recorre cada elemento del array "b"         
+         }
+
+
          console.log(miObjeto.hasOwnProperty("nombre")); //tiene la propiedad nombre? en consola muestra TRUE
          console.log(miObjeto.hasOwnProperty("nacimiento")); //muestra en consola FALSE
 
+         //manejo de errores
+         
+         try {
+            let valor = "y";
+             if(isNaN(valor)){
+                 throw new Error("el valor introducido debe ser un número")
 
+                 console.log(valor*valor);
+             }
+         } catch (error) {
+             console.log(`se produjo el siguiente error: ${error}`);
+         }
+        
+         //break y continue
+         let numeros1 = [1,2,3,4,5,6,7,8,9,0];
+
+         for (let i = 0; i < numeros1.length; i++) {
+             if(i===5){
+                 break; //muestra en consola 12345
+             }
+             console.log(numeros1[i]);
+         }
+         for (let i = 0; i < numeros1.length; i++) {
+             if(i===5){
+                 continue; //muestra en consola 123457890
+                 //me saltea la iteracion que sigue desp del 5, en este caso el 6
+             }
+             console.log(numeros1[i]);
+         }
+
+         //destructuracion 
+         const num = [1,2,3];
+
+         let [uno, dos, tres] = num; //separar cada elemento del array en variables diferentes
+         console.log(uno, dos, tres); //entre corchetes porque estoy creando variables de un array
+
+         const persona = {
+            nombre1: "graciana",
+            apellido1: "amaranto",
+            edad1: 25
+         }
+
+         let {nombre1, apellido1, edad1} = persona; //entre llaves porque estoy creando
+                                                    //variables de un objeto
+             
     </script>
 </body>
 </html>
