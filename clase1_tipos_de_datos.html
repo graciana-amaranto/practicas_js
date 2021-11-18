@@ -244,14 +244,36 @@
          console.log(uno, dos, tres); //entre corchetes porque estoy creando variables de un array
 
          const persona = {
-            nombre1: "graciana",
-            apellido1: "amaranto",
-            edad1: 25
+            name: "graciana",
+            surname: "amaranto",
+            age: 25
          }
 
-         let {nombre1, apellido1, edad1} = persona; //entre llaves porque estoy creando
-                                                    //variables de un objeto
-             
+         let {n, s, ag} = persona; //entre llaves porque estoy creando variables de un objeto
+        
+         //objetos literales
+         let nombre3 = "leona",
+         edad3 = 6;
+
+         const gato = {
+             nombre3: nombre3,
+             edad3: edad3,
+             maullar: function(){
+                 console.log("miau miau")
+             }
+         }
+
+         const cat = {
+             nombre3,  //para no repetir los nombres, pongo directamente el nombre de la propiedad
+             edad3,  //solo si la propiedad y el valor TIENEN EL MISMO NOMBRE
+             raza: "siames",
+             maullar (){
+                 console.log("miau miau miau")
+             }
+         }
+
+         console.log(cat);
+         cat.maullar();
     </script>
 </body>
 </html>
