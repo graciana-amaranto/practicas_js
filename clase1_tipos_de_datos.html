@@ -274,6 +274,58 @@
 
          console.log(cat);
          cat.maullar();
+
+        function sumar(a, b, ...c){  //...c parámetro rest: cuando no se cuantos valores voy a recibir 
+             let resultado = a + b;
+
+             c.forEach(function(n){ //toma a c como un array con x cantidad de elem, por eso uso forEach
+             resultado += n;
+            })
+            return resultado
+        }
+        console.log(sumar(1, 2, 3, 4, 5 ,6, 7))
+         
+        const arr1 = [1, 2, 3, 4, 5],
+         arr2 = [6, 7, 8, 9, 0]
+
+        const arr3 = [arr1, arr2] //sin los puntos, me muestra [Array(5), Arrray(5)]
+        //yo quiero ver los valores, no "array(5)"
+         const arr33 = [...arr1, ...arr2]; //con ... me muestra [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+
+        //arrow function 
+        
+        /*const saludar = function() {  //funcion expresada clasica
+            console.log("hola");
+        }
+        saludar(); */
+
+        const saludarr = () => console.log("Hola"); //arrow function ver 
+        saludarr()
+
+        const saludarrr = nombre => console.log(`Hola ${nombre}`); //no es necesario poner () en el parametro "nombre"
+        saludarrr("Lucia");
+
+        /* 
+        const sumar = function (a,b){
+            return a+b;
+        }
+        */
+       const sumarrrr = (a, b) => a + b; //funcion y return implicitos
+       console.log(sumar(9,9));
+
+       const funcionDeVariasLineas = () => {
+           //linea1
+           //linea2
+           //linea3
+       }
+       funcionDeVariasLineas();
+
+       const num = [1, 2, 3, 4, 5];
+
+       numeros.forEach((elem, index) => console.log(`${elem} esta en la posicion ${index}`));
+
+
+
     </script>
 </body>
 </html>
