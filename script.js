@@ -44,13 +44,114 @@ Animal.prototype.saludar5 = function (){
     console.log(`Hola me llamo ${this.nombre} `)
 }
 
+//herencia prototipica
+function Perro(nombre, genero, tamanio) {
+    this.super = Animal;
+    this.super(nombre, genero);
+    this.tamanio = tamanio;
+}
 
-const snoopy = new Animal("snoppy", "macho"),
+//perro esta heredando variales y metodos de Animal
+Perro.prototype = new Animal;
+Perro.prototype.constructor = Perro; 
+
+//si quiero puedo sobreescribir un metodo que este heredando
+Perro.prototype.sonar = function (){
+    console.log("Soy un perro y mi sonido es un ladrido");
+}
+//puedo agregar a Perro un metodo que no este en la funcion padre Animal:
+Perro.prototype.ladrar = function(){
+    console.log("guau guau");
+}
+
+
+
+
+const snoopy = new Perro("snoppy", "macho", "mediano"),
     lolaBunny = new Animal("Lola Bunny", "hembra");
 
 console.log(snoopy, lolaBunny);
 
 snoopy.sonar()
 snoopy.saludar5()
+snoopy.ladrar()
+
 lolaBunny.sonar()
 lolaBunny.saludar5()
+
+
+//Clases y herencias:podemos escribir los prototipos como clases; es una forma mas simple --> sugar syntax
+
+class Animall {
+    constructor(nombre, genero){  //constructor es un metodo especial de las clases que se ejecuta en momento de instanciar
+        this.nombre = nombre;
+        this.genero = genero;
+    }
+    //metodos: se simplifica su escritura, y ya no necesito asignarlas a prototype; js lo hace por nosotros.
+    sonar(){
+        console.log("hago sonidos porque estoy vivo")
+    }
+    saludar(){
+        console.log(`Hola me llamo ${this.nombre}`);
+    }
+
+}
+
+class Dog extends Animall{
+    constructor(nombre, genero, tamanio){
+        super(nombre, genero) //atributos de la clase padre que ya existen (animal)
+        this.tamanio = tamanio; //atributo nuevo
+    }
+    sonar(){
+        console.log("soy un perro y mi sonido es ladrar"); //sobreescribo un metodo que ya existe en el padre
+    }
+    ladrar(){  //creo un nuevo metodo para esta clase y que no existe en el padre
+        console.log("guauu guauu");
+    }
+    
+}
+
+
+
+const mimi =  new Animall("mimi", "hembra"),
+    scooby = new Dog("scooby", "macho", "gigante");
+
+console.log(mimi, scooby)
+
+//metodos estaticos, getters y setters
+
+class Cat extends Animall{
+    constructor(name, gender, size){
+        super(name, gender) //atributos que ya existen en Animal
+        this.size = size;
+        this.breed = null; //al inicio de se cree un gato, raza es nulo, no necesito ponerlo en constructor()
+    }
+    sonar(){
+        console.log("soy un gato y mi sonido es el maullido")
+    }
+    maullar(){
+        console.log("miau miau");
+    }
+    static queEres(){ //el metodo estatico se puede usar sin necesidad de crear un objeto con esta clase "const leona = new Cat..."
+        console.log("leona es una gata de 6 años")
+    }
+    get getRaza(){ //metodo obtenedor get
+        return this.breed;
+    }
+    set setRaza(raza){ //metodo set: metodo establecedor que modifique el valor del atributo
+        this.breed = raza;
+    }
+}
+
+Cat.queEres(); //aca lo llamo 
+
+
+const leona = new Cat("Leona", "Hembra", "Mediana")
+console.log(leona)
+leona.sonar()
+leona.maullar()
+leona.saludar()
+
+console.log(leona.getRaza);  //muestra null porque todavia no le di ningun valor
+leona.setRaza = "Siamés"; //le doy un valor como si fuera un ATRIBUTO, no una funcion, si lo hago como funcion me tirar error
+console.log(leona.getRaza);
