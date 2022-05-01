@@ -155,3 +155,23 @@ leona.saludar()
 console.log(leona.getRaza);  //muestra null porque todavia no le di ningun valor
 leona.setRaza = "Siamés"; //le doy un valor como si fuera un ATRIBUTO, no una funcion, si lo hago como funcion me tirar error
 console.log(leona.getRaza);
+
+//clase 30 - metodos alert, confirm, prompt
+
+let alerta = alert('Hola esta es una alerta'),  //simple aviso, me da undefined siempre
+    confirmacion = confirm("hola esta es una confirmacion"),  //tengo 2 botones, si doy aceptar me guarda TRUE, si doy cancelar me guarda FALSE
+    aviso = prompt("hola esto es un aviso y le permite al usuario ingresar un valor"); //si escribo algo me guarda eso, si escribo pero le doy cancelar me guarda NULL
+
+//expresiones regulares: se usan para validaciones de todo tipo
+
+let cadena = "Do consectetur culpa incididunt sit id cupidatat incididunt.";
+
+let expresionRegular = new RegExp("culpa","ig") //lo que quiero buscar/ bandera
+let expresionRegular2 = /culpa/ig; //i significa q ignore las mayus, g me cuenta todas las palabras encontradas, no solo la primera.
+
+console.log(expresionRegular.test(cadena)); //me devuelve true o false si encuentra la palabra o no.
+console.log(expresionRegular.exec(cadena)); //me devuelve un arreglo con mas info (donde, posicion...)
+
+//funciones anónimas autoejecutables: es una funcion en donde se engloba todo el codigo que quiero ejecutar
+ 
+
