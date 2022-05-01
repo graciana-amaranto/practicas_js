@@ -173,5 +173,5 @@ console.log(expresionRegular.test(cadena)); //me devuelve true o false si encuen
 console.log(expresionRegular.exec(cadena)); //me devuelve un arreglo con mas info (donde, posicion...)
 
 //funciones anónimas autoejecutables: es una funcion en donde se engloba todo el codigo que quiero ejecutar
- 
+
 
