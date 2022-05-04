@@ -97,10 +97,90 @@ export const palindromo = (palabra = "") =>{
 
 //8) Programa una funcion que elimine cierto patron de caracteres de un texto dado, pe. miFuncion ("xyz1, xyz2, xyz3, xyz4, xyz5", "xyz") devolvera "1,2, 3, 4, 5"
 
-const eliminarCaracteres = (texto = "", patron = "") =>
+export const eliminarCaracteres = (texto = "", patron = "") =>
     (!texto)
     ? console.warn("No ingresaste ningun texto.")
     : (!patron)
         ? console.warn("no ingresaste ningun patron para eliminar")
-        : console.info()
+        : console.info(texto.replace(new RegExp(patron, "ig"), ""));  //reemplaza el patron dentro del regexp por "nada", de esa forma solo elimino
+
+//ejemplo de uso de replace()
+const p = 'The quick brown fox jumps over the lazy dog. If the dog reacted, was it really lazy?';
+
+console.log(p.replace('dog', 'monkey'));
+// expected output: "The quick brown fox jumps over the lazy monkey. If the dog reacted, was it really lazy?"
+        
+const regex = /Dog/i;
+console.log(p.replace(regex, 'ferret'));
+ // expected output: "The quick brown fox jumps over the lazy ferret. If the dog reacted, was it really lazy?"
+
+
+ //9) Programa una funcion que obtenga un numero aleatorio entre 501 y 600
+
+export const aleatorio = () => console.info(Math.round(Math.random() * 100 + 500)) //random me da entre 0 y 1, con round lo hago del 1 al 100
+
+//10) programa una funcion que reciba un numero y evalue si es capicúa o no. pe. mifuncion(2002) devolverá true
+
+export const capicua = (numero = 0) =>{
+    if (!numero) return console.warn("No ingresaste ningun numero")
+    if (typeof numero !== "number") return console.error(`El valor "${numero}" no es un numero`)
+
+    numero = numero.toString();
+    let numeroAlReves = numero.split("").reverse().join("");
+
+    return (numero === numeroAlReves)
+    ? console.info(`el numero ${numero} si es capicua, al reves es ${numeroAlReves}`)
+    : console.info(`el numero ${numero} no es capicua. Al reves es ${numeroAlReves}`)
+}
+
+//11) programa una funcion que calcule el factorial de un numero
+
+export const factorial = (numero = undefined) =>{
+    if (numero === undefined) return console.warn("No ingresaste ningun numero")
+    if (typeof numero !== "number") return console.error(`El valor "${numero}" no es un numero`)
+    if (numero === 0) return console.error("el numero no puede ser 0")
+    if (Math.sign(numero) === -1) return console.error("el numero no puede ser negativo")
+
+    let factorial = 1;
+
+    for (let i = numero; i > 1; i--){
+        factorial *= i; 
+    }
+
+    return console.info(`El factorial del numero ${numero} es ${factorial}`);
+}
+
+//12) programa una funcion que determine si un numero es primo (solo divisible por si mismo y por 1) ej miFuncion(7) devolvera true
+
+export const primo = (numero = undefined) => {
+    if (numero === undefined) return console.warn("No ingresaste ningun numero")
+    if (typeof numero !== "number") return console.error(`El valor "${numero}" no es un numero`)
+    if (numero === 0) return console.error("el numero no puede ser 0")
+    if (numero === 1) return console.error("el numero no puede ser 1")
+    if (Math.sign(numero) === -1) return console.error("el numero no puede ser negativo")
+
+    let esDivisible = false;
+
+    for (let i = 2; i < numero; i++){
+        if ((numero % i) === 0){
+            esDivisible = true;
+            break;
+        }
+    }
+    return (esDivisible)
+    ? console.info(`El numero ${numero} NO es primo`)
+    : console.info(`El numero ${numero} es un numero primo. `)
+}
+
+//13) programa una funcion que determine si un numero es par o impar
+
+export const parImpar = (numero = undefined) =>{
+    if (numero === undefined) return console.warn("No ingresaste ningun numero")
+    if (typeof numero !== "number") return console.error(`El valor "${numero}" no es un numero`)
+
+    return ((numero % 2) === 0)
+    ? console.info(`El numero ${numero} es un numero par`)
+    : console.info(`El numero ${numero} es un numero impar`)
+}
+
 
