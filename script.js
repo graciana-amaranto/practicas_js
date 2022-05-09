@@ -157,10 +157,10 @@ leona.setRaza = "Siamés"; //le doy un valor como si fuera un ATRIBUTO, no una f
 console.log(leona.getRaza);
 
 //clase 30 - metodos alert, confirm, prompt
-
+/*--
 let alerta = alert('Hola esta es una alerta'),  //simple aviso, me da undefined siempre
     confirmacion = confirm("hola esta es una confirmacion"),  //tengo 2 botones, si doy aceptar me guarda TRUE, si doy cancelar me guarda FALSE
-    aviso = prompt("hola esto es un aviso y le permite al usuario ingresar un valor"); //si escribo algo me guarda eso, si escribo pero le doy cancelar me guarda NULL
+    aviso = prompt("hola esto es un aviso y le permite al usuario ingresar un valor"); //si escribo algo me guarda eso, si escribo pero le doy cancelar me guarda NULL */
 
 //expresiones regulares: se usan para validaciones de todo tipo
 
@@ -172,6 +172,90 @@ let expresionRegular2 = /culpa/ig; //i significa q ignore las mayus, g me cuenta
 console.log(expresionRegular.test(cadena)); //me devuelve true o false si encuentra la palabra o no.
 console.log(expresionRegular.exec(cadena)); //me devuelve un arreglo con mas info (donde, posicion...)
 
-//funciones anónimas autoejecutables: es una funcion en donde se engloba todo el codigo que quiero ejecutar
+//temporizadores setTimeOut y setInterval: permiten lanzar otras acciones despues de haber pasado cierto tiempo o n cantidad de veces
 
+console.log("inicio")
+let timeout3Segundos = setTimeout(() => {
+    console.log("ejecutando un setTimeout, esto se ejecuta una sola vez.")
+}, 3000); //3 segundos
+
+/*
+setInterval(() => {
+    console.log("Ejecutando un setInterval, esto se ejecuta indefinidamente cada cierto intervalo de tiempo")
+}, 2000); */
+
+let intervalo = setInterval(() => {
+    console.log("Ejecutando un setInterval, esto se ejecuta indefinidamente cada cierto intervalo de tiempo")
+}, 10000000);
+
+/*
+setInterval(() => {
+    console.log(new Date().toLocaleDateString())  muestra la hora cada segundo en una linea nueva
+}, 1000);
+*/
+clearTimeout(timeout3Segundos); //para cancelarlo, no se ejecuta nunca, tengo que guardar el setTimeout en una variable primero
+clearInterval(intervalo); 
+
+/* 
+
+Asincronia y Event Loop 
+
+Procesamiento Singlethread y Multithread: significa que solo puede ejecutar una cosa a la vez, simplifican la escritura de codigo pero no pueden realizar operaciones largas,
+como el acceso a al red sin que se bloquee el hilo principal, por ej, cuando envias una solicitud a una API, el hilo principal se queda bloqueado, esto hace que la pagina web no responda.
+- Lo que hace la asincronía es poder enviar solicitudes largas a la red sin bloquear el hilo principal. Js tiene un loop de eventos implementado de un solo hilo para operaciones de entrada/salida
+gracias a esto es que js es altamente concurrente (posee las estructuras necesarias para definir y manejar diferentes tareas dentro de un programa.
+
+Operaciones de Input/Output : operaciones q pasan la mayor parte del tiempo esperando la peticion del recurso que solicitamos, ej: hacemos un pago en linea, esperamos a que la API cobre y responda a los datos
+Operaciones Concurrentes y Paralelas: concurrencia es cuando varias tareas van PROGRESANDO al mismo tiempo. Si son paralelas, se ejecutan AL MISMO TIEMPO. 
+Operaciones Bloqueantes y No Bloqueantes: siempre hay una fase de espera cada vez que se ejecuta una operacion del codigo. Una op. bloqueante no devuelve el control a la app hasta que haya terminado toda su tarea, 
+mientras que las no bloqueantes las operaciones se ejecutan y devuelven nmediatamente el control al hilo principal, no importando si han terminado o no la tarea.
+
+Operaciones Síncronas y Asíncronas: Una operacion sincrona espera el resultado, mientras que asincrono la respuesta sucede en un futuro, se ejecuta pero no sabe cuando va a venir la respuesta, es decir no espera el resultado,
+es por eso que suelta el control y se lo regresa al hilo principal. 
+
+*/
+
+//Código Sincrono Bloqueante
+
+(() => {
+    console.log("Codigo Sincrono");  //ejecuta primero
+    console.log("Inicio"); //segundo
+
+    function dos(){   
+        console.log("Dos"); //quinto-se mantiene el tercero
+    }
+
+    function uno(){
+        console.log("Uno"); //cuarto
+        dos();
+        console.log("Tres") //sexto-se mantiene el tercero
+    }
+
+    uno(); //tercero
+    console.log("Fin"); //ultimo 
+})();
+
+//Codigo Asincrono No Bloqueante
+
+(() =>{
+    console.log("Codigo Asincrono"); //ejecuta primero
+    console.log("Inicio"); //segundo
+
+    function dos(){
+        setTimeout(function(){
+            console.log("Dos"); //ultimo
+        }, 1000);
+    }
+
+    function uno(){
+        setTimeout(function(){ //ignora el settimeout y lo pone al ultimo
+            console.log("Uno");  //sexto- antes que dos() porque el tiempo es menor
+        }, 0);
+        dos(); //ingora dos porque tiene settimeout-lo deja al ultimp
+        console.log("Tres"); //cuarto
+    }
+
+    uno(); //tercero
+    console.log("Fin"); //quinto
+})();
 

@@ -34,6 +34,8 @@ factorial(5);
 
 primo(7);
 
-parImpar(3)
+parImpar(2);
 
-celciusFarenheit(1, "C")
+celciusFarenheit(3, "C");
+celciusFarenheit(32, "F");
+

@@ -189,11 +189,15 @@ export const celciusFarenheit = (numero = undefined, letra = "") => {
     if (numero === undefined) return console.warn("No ingresaste ningun numero")
     if (typeof numero !== "number") return console.error(`El valor "${numero}" no es un numero`)
     if (typeof letra !== "string") return console.error(`El valor "${letra}" no es una letra`)
-    
     if (letra.length !== 1) return console.warn("Valor de unidad no reconocido.")
-    
+
     if (letra === "C"){
-        return console.info(`${letra}° = ${Math.round((numero * 1.8) + 32)}°F`);
+        return console.info(`${numero}°C = ${Math.round((numero * 1.8) + 32)}°F`);
+    }
+    if (letra === "F"){
+        return console.info(`${numero}°F = ${Math.round(((numero -32) / 0.55))}°C`)
     }
 }
+
+
 
