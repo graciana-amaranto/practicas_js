@@ -259,3 +259,79 @@ es por eso que suelta el control y se lo regresa al hilo principal.
     console.log("Fin"); //quinto
 })();
 
+
+//Callbacks: function que se ejecuta despues de que otra lo haga. Mecanismo para trabajar con la asincronía.
+
+function cuadradoCallback(value, callback){  //funcion que toma un valor y lo resuelve en otra funcion "callback"
+    setTimeout(() => {
+        callback(value, (value * value));
+    },2500);
+}
+
+/*
+cuadradoCallback(0, (value, result) =>{  //toma un valor y otra funcion
+    console.log("Inicia callback");
+    console.log(`Callback: ${value}, ${result}`);
+    cuadradoCallback(1, (value, result) =>{
+        console.log(`Callback: ${value}, ${result}`);
+        cuadradoCallback(2, (value, result) =>{
+            console.log(`Callback: ${value}, ${result}`);
+            cuadradoCallback(3, (value, result) =>{
+                console.log(`Callback: ${value}, ${result}`);
+                cuadradoCallback(4, (value, result) =>{
+                    console.log(`Callback: ${value}, ${result}`);
+                    cuadradoCallback(5, (value, result) =>{
+                        console.log(`Callback: ${value}, ${result}`);
+                        console.log("Fin callback");
+                        console.log("Callback hell!!!!");
+                    });
+                });
+            });
+            
+        });
+    });
+}); */
+
+/*
+
+Promesas: Sirve como solucion al callback hell y al tedioso manejo de errores que estas tienen; habria que hacer una validacion por cada funcion dentro del callback
+ Las promesas funcionan con dos recursos principales: 
+ resolve: si la promesa se cumple, es decir accedemos al recurso ej peticion a una API, la promesa se cumple y se ejecuta el resolve
+ reject: si la promesa por alguna razon falla, se ejecuta el reject.
+
+*/
+
+function cuadradoPromise(value){ 
+    if (typeof value !== "number") return Promise.reject(`Error, el valor ${value} ingresado no es un numero`);
+    return new Promise((resolve) =>{
+        setTimeout(() => {
+            resolve({
+                value,
+                result: value * value
+        })
+    },0);
+    })   
+}
+
+cuadradoPromise(0) //cuando es exitoso devuelve un objeto con el valor y el resultado
+    .then(obj =>{ //siguiente bloque que se va a ejecutar una vez que se cumpla la funcion inicial
+        console.log("Inicia promise");
+        console.log(`Promise: ${obj.value}, ${obj.result}`)
+        return cuadradoPromise(1);
+    })  
+    .then(obj =>{
+        console.log(`Promise: ${obj.value}, ${obj.result}`)
+        return cuadradoPromise(2);
+    })
+    .then(obj =>{
+        console.log(`Promise: ${obj.value}, ${obj.result}`)
+        return cuadradoPromise("3");  //error, salta directamente al catch sin ejecutar los demas 
+    })
+    .then(obj =>{
+        console.log(`Promise: ${obj.value}, ${obj.result}`)
+        console.log("Fin de la promise");
+    })
+    .catch(err => console.error(err));  //captura el error resultante del reject
+
+
+
