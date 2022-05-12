@@ -237,6 +237,7 @@ es por eso que suelta el control y se lo regresa al hilo principal.
 
 //Codigo Asincrono No Bloqueante
 
+/*
 (() =>{
     console.log("Codigo Asincrono"); //ejecuta primero
     console.log("Inicio"); //segundo
@@ -259,6 +260,7 @@ es por eso que suelta el control y se lo regresa al hilo principal.
     console.log("Fin"); //quinto
 })();
 
+*/
 
 //Callbacks: function que se ejecuta despues de que otra lo haga. Mecanismo para trabajar con la asincronía.
 
@@ -335,3 +337,115 @@ cuadradoPromise(0) //cuando es exitoso devuelve un objeto con el valor y el resu
 
 
 
+//funciones asincronas Async - Await: peticiones asincrincronas dadas de una promesa, NO REEMPLAZAN LAS PROMESAS
+//la optimizacion sería que al trabajar con funciones asincronas, cada peticion la puedo guardar en una variable y evito el uso de muchos .then 
+
+async function funcionAsincronaDeclarada (){
+    try{
+        console.log("inicio de async function declarada")
+        let obj = await cuadradoPromise(0); //await: espera el resultado de esta ejecucion antes de pasar a la siguiente linea 
+        console.log(`Async Function: ${obj.value}, ${obj.result}`);
+
+        obj = await cuadradoPromise((1));
+        console.log(`Async Function: ${obj.value}, ${obj.result}`); //cuadradoPromise(1) NO ESPERA a cuadradoPromise(0)
+        
+        obj = await cuadradoPromise(("2"));
+        console.log(`Async Function: ${obj.value}, ${obj.result}`);
+
+    } catch (err) {
+        console.error(`Error de Async Function declarada: ${err} `)
+    }
+}
+
+funcionAsincronaDeclarada();
+
+//la misma funcion pero expresada
+
+const funcionAsincronaExpresada = async () => {
+    try{
+        console.log("inicio de async function expresada")
+        let obj = await cuadradoPromise(3); //await: espera el resultado de esta ejecucion antes de pasar a la siguiente linea 
+        console.log(`Async Function: ${obj.value}, ${obj.result}`);
+
+        obj = await cuadradoPromise((4));
+        console.log(`Async Function: ${obj.value}, ${obj.result}`); //cuadradoPromise(1) NO ESPERA a cuadradoPromise(0)
+        
+        obj = await cuadradoPromise((5));
+        console.log(`Async Function: ${obj.value}, ${obj.result}`);
+
+    } catch (err) {
+        console.error(`Error de Async Function expresada: ${err} `)
+    }
+
+}
+
+funcionAsincronaExpresada();
+
+//Symbols: tipo de dato primitivo que una vez que lo creamos, su valor se mantiene privado para uso interno (del tipo objeto)
+
+/*
+let id = "Hola";
+let id2 = "Hola"; son exactamente iguales
+*/ 
+
+let id = Symbol("id")  //ahora son diferentes. para diferenciar cada symbol agrego una descripcion
+let id2 = Symbol("id") //en este caso "id", tambien puede ser un numero
+
+const NOMBRE = Symbol("nombre"); //las constantes se escriben todo en mayus
+const SALUDAR = Symbol("saludar");
+
+const personaa = {  //creo un objeto
+    [NOMBRE]: "graciana"   //el valor de "graciana" es un SIMBOLO, le doy la propiedad entre corchetes
+}
+
+personaa.NOMBRE = "graciana amaranto"; //creo una nueva propiedad, NO SE REESCRIBE, muestra que se llama NOMBRE, pero en el primero solo dice Symbol()
+
+console.log(personaa.NOMBRE); //muestra solo "graciana amaranto"
+console.log(personaa[NOMBRE])  //muestra "graciana", en ningun momento me dice que se llama NOMBRE, lo oculta
+
+personaa[SALUDAR] = function () {
+    console.log("Hola!!!!!!!")  //agrego esta funcion al objeto
+}
+
+console.log(personaa) //muestra el objeto con 2 simbolos, NOMBRE y SALUDAR
+personaa[SALUDAR](); //muestra Hola!!!!!!, lleva () porque es un parametro
+
+for (let propiedad in personaa){
+    console.log(propiedad);           //muestra NOMBRE, la propiedad que cree en la linea 401, que no es del tipo Symbol
+    console.log(personaa[propiedad]);  //muestra el valor de NOMBRE, osea "graciana amaranto"
+} //las propiedades que tienen Symbol, no se muestran porque son privadas.
+
+Object.getOwnPropertySymbols(personaa); //para ver las propiedades con Symbol que no me muestra normalmente.
+
+
+//Sets: similar a un array pero solo de datos unicos
+
+const set = new Set([1,2,3,3,4,5, true, false, false, {}, {}, "hola", "HOLA"])
+//el 3 y false aparecen una sola vez, los objetos muestra ambos, y los holas tambien por ser case sensive.
+console.log(set.size); //para saber la cantidad de elem que tiene filtrados los que se repiten
+
+const set2 = new Set(); //otra forma de escribirlo
+set2.add(1);
+set2.add(2);
+set2.add(3);
+set2.add(3);
+set2.add(true);
+set2.add(false);
+set2.add(true);
+set2.add({});
+
+console.log("Recorriendo set");
+for (item of set){
+    console.log(item);
+}
+console.log("Recorriendo set2");
+set2.forEach(item => console.log(item)); //2 formas distintas de recorrerlos
+
+console.log(set[0]); //undefined: NO FUNCIONA
+
+let arregloSet = Array.from(set); //convierto el set en array para poder acceder a sus items
+console.log(arregloSet[0]); //muestra 1, ahora si funciona
+
+set.delete("hola"); //para borrar un item del set
+console.log(set.has(19)) //muestra false: es para validar si un dato existe o no dentro del set. 
+set2.clear(); //para limpiar todos los items de set2
