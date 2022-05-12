@@ -449,3 +449,40 @@ console.log(arregloSet[0]); //muestra 1, ahora si funciona
 set.delete("hola"); //para borrar un item del set
 console.log(set.has(19)) //muestra false: es para validar si un dato existe o no dentro del set. 
 set2.clear(); //para limpiar todos los items de set2
+
+//Maps: objeto iterador que sirven para almacenar conjuntos de valores asociados a un objeto
+
+let mapa = new Map();  //creamos un map con 3 items
+mapa.set("nombre", "gra");
+mapa.set("apellido", "amaranto");
+mapa.set("edad", 26);
+
+console.log(mapa.size); //muestra 3
+console.log(mapa.has("correo")); //muestra false
+console.log(mapa.has("nombre")); //muestra true
+console.log(mapa.get("nombre")); //muestra gra
+mapa.set("nombre", "graciana amaranto"); //para sobreescribir
+console.log(mapa.get("nombre")); //ahora muestra graciana amaranto
+mapa.delete("apellido") //para eliminar un dato
+
+for (let [dato, value] of mapa){ //para recorrer el Map
+    console.log(`Dato: ${dato}, valor del dato: ${value}`) //muestra nombre: grciana amaranto, 26
+}
+
+//otra forma de inicializar los maps
+const mapa2 = new Map([
+    ["nombre", "micha"],
+    ["edad", 1],
+    ["animal", "gatito"]
+]);
+
+const llavesMapa2 = [...mapa2.keys()]; //si quiero mostrar las lleves y lso valores por separado
+const valoresMapa2 = [...mapa2.values()]; //se guardan como array
+
+console.log(llavesMapa2);
+console.log(valoresMapa2);
+
+
+
+
+
