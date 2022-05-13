@@ -482,7 +482,135 @@ const valoresMapa2 = [...mapa2.values()]; //se guardan como array
 console.log(llavesMapa2);
 console.log(valoresMapa2);
 
+/*
+WeakSets y WeakMaps: Solo pueden almacenar referencias debil, es decir que las llaves deben ser del tipo objeto. 
+ - No son elementos iterables ni podemos borrar con el metodo clear() (solo uno por uno), ni ver el tamaño con size()
+ - Cuando mis variables se vuelven undefined o null, automaticamente se eliminan para mejorar el rendimiento de nuestra app
+ */
+//const ws = new WeakSet([1,2,3,3,4,5, true, false, false, {}, {}, "hola", "HOLA"]); //TIRA ERROR PORQUE DEBO AGREGAR CADA ITEM UNO X UNO.
+
+let v1 = {"valor1":1};
+let v2 = {"valor2":2};
+let v3 = {"valor3":3}; //estos son objetos guardados en variables
+
+const ws = new WeakSet();
+ws.add(v1);
+ws.add(v2);
+
+console.log(ws.has(v1)); //da true
+console.log(ws.has(v3)); //da false
+
+ws.delete(v2);
+
+ws.add(v2);
+ws.add(v3);
+
+setTimeout(() => {
+    v1 = null;
+    v2 = null;
+    v3 = null;
+}, 5000); //cuando pasan los 5 segundos, Weakset borra las variables y queda vacía
+
+const wm = new WeakMap();
+let llave1 = {};
+let llave2 = {};
+let llave3 = {}; //inicializo las referencias (objetos) vacios
+
+//si quiero agregar alguna llave al weakmap, lo hago con el metodo set (igual que en map)
+ wm.set(llave1, 1);
+ wm.set(llave2, 2); //detecta que hay dos propiedades
+ 
+ console.log(wm.has(llave1)); //da true
+ console.log(wm.has(llave3)); //da false
+
+ console.log(wm.get(llave1)); //muestra 1
+ console.log(wm.get(llave2)); //muestra 2
+ console.log(wm.get(llave3)); //muestra undefined porque no agregue llave3
+
+ wm.delete(llave2);
 
 
+ /*
+ Iterables & Iterators: cuando un tipo de dato es iterable, significa que su estructura de datos es lineal que hace que sus elem sean publicos
+ y se puedan recorrer (como los arreglos, strings, maps, sets y elementos del dom)
+- Un iterador es un "apuntador" que es el mecanismo que recorre los elementos. Hay diferentes mecanismos para recorrer un iterable
+Puedo acceder a la interfaz del iterador con Symbol.iterator() y next
+*/
+
+const iterable = [1,2,3,4,5];
+const iterador = iterable[Symbol.iterator]();
+
+console.log(iterador.next()); //value: 1, done: false <-- me indica que no se acabo el array
+console.log(iterador.next()); //value: 2, done: false... 5 veces hasta q da true
+//si tuviese 1000 items esto no seria lo mejor, tendria que usar un iterador para recorrer todos los items automaticamente
+
+let next = iterador.next();
+
+while (!next.done){ //mientras next.done sea false, segui recorriendo
+    console.log(next.value);
+    next = iterador.next();  //muevo el iterador al item que sigue
+}
 
 
+/*
+Generators: una funcion mucho mas sencilla que next con la interfaz de los iteradores
+- Sirven para volver iterable una funcion
+*/
+
+function* iterable1 (){
+    yield "hola"; //yield es como una especie de return iterador
+    console.log("Hola consola");
+    yield "hola 2";
+    console.log("seguimos con las instrucciones de nuestro codigo");
+    yield "hola 3";
+    yield "hola 4";
+}
+
+let iterador1 = iterable1(); //lo mismo que interable[Symbol.iterator](); accedo a la interfaz del iterador
+
+for (const y of iterador1) {
+    console.log(y);
+}
+
+const arreglo = [...iterable1()]; //guarda cada yield en un arreglo ["hola", "hola 2", "hola 3", "hola 4"]
+
+
+/*
+Proxies: permite crear un obj basado en un objeto literal inicial. Parecido a las clases y sus instancias que heredan ciertas caract. de la clase principal
+el proxy recibe un objeto literal, genera una copia y permite que hagas ciertas operaciones dentro de la copia que se esta creando.
+Todo eso se administra a traves de un objeto especial llamado handler.
+Proxy() recibe un objeto y un handler, ambos tengo que crear.
+*/
+
+const person = {
+    nombre: "",
+    apellido: "",
+    edad: 0
+}
+
+//en set, yo le digo: al objeto, en cada una de las propiedades, le voy a asignar el valor que me esta dando el user en el proxy.
+const manejador = {            //set recibe el objeto como tal, c/u de las propiedades a evaluar
+    set(obj, prop, valor){      //y el valor que recibe cada una de esas propiedades
+        if (Object.keys(obj).indexOf(prop) === -1){ //si index of no encuentra la propiedad en el objeto, no se le puede agregar un valor porque no existe. 
+            return console.error(`La propiedad "${prop}" no existe en el objeto principal persona.`)
+        }
+        //dentro de set hago todas mis validaciones
+        if (
+            (prop === "nombre" || prop === "apellido") && (/^[A-Za \s]+ $/g.test(valor))
+        ){
+            return console.error(`La propiedad "${prop}" solo acepta letras y espacios en blanco.`)
+        }
+    
+        obj[prop] = valor;      //puedo hacer validaciones para restringir para que el objeto original no sufra cambios
+    }
+}
+
+const g = new Proxy(person, manejador);
+
+g.nombre = "gra";    //se modificaron porque en el handler le dije que les diera un valor.
+g.apellido = "amaranto";
+g.edad = 26;
+console.log(g);
+
+g.twitter = "@graciana333"; //la key/propieddad twitter no existe en person, no la puedo agregar.
+console.log(g); //veo que twitter no fue agergado al proxy.
