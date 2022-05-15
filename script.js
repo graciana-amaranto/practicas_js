@@ -614,3 +614,72 @@ console.log(g);
 
 g.twitter = "@graciana333"; //la key/propieddad twitter no existe en person, no la puedo agregar.
 console.log(g); //veo que twitter no fue agergado al proxy.
+
+/*
+Propiedades dinamicas de los Objetos: genera el nombre de las propiedades cuando los items (de un array o API por ej)
+son muchos y seria tedioso agregar una propiedad a cada uno. Aca genera automaticamente una propiedad a cada uno.
+*/
+
+let aleatorio = Math.round(Math.random() * 100 + 5); //para que me de un numero mayor que 5
+
+const objUsuarios = {
+    propiedad: "valor",
+    [`id_${aleatorio}`]: "Valor aleatorio" //puedo hacerlo dentro del objeto directamente
+}
+console.log(objUsuarios);
+
+const usuarios = ["graciana", "juan", "efrain", "tere"];
+usuarios.forEach((usuario, index) => objUsuarios[`id_${index}`] = usuario);
+
+console.log(objUsuarios); //muestra id_0: "graciana", id_1:"juan" en el objeto objUsuarios
+
+
+//.this va a retornar cierto valor depende de los contextos (global, objeto, funcion), tambien dependiendo del scope 
+
+this.nombre1 = "Contexto Global";
+console.log(this.nombre1);  //muestra el string Contexto Global
+
+function imprimir(){
+    console.log(this.nombre1);
+}
+imprimir(); //me sigue mostrando contexto global porque sigo en el ambito global windows
+
+const objetoThis = {
+    nombre1: "Contexto Objeto",
+    imprimir: function (){ //funcion anonima
+        console.log(this.nombre1);
+    }
+}
+objetoThis.imprimir();  //cambia el scope, estoy dentro de un objeto, muestra Contexto Objeto
+
+const objThis2 = {
+    nombre1: "Contexto Objeto 2",
+    imprimir    //shorthand imprimir:imprimir -> funcion declarada fuera del objeto al principio
+}
+objThis2.imprimir();  //NO ME SALGO DEL SCOPE PORQUE TRAJE UNA FUNCION DE AFUERA, el this sigue haciendo referencia al nombre1 del objeto 2.
+                      //es lo mismo que imprimir del objeto 1, solo que en lugar de crearla a la funcion, traje una de afuera. 
+                       
+const objetoThis3 = {
+    nombre1: "Contexto Objeto 3",
+    imprimir:() => {  //las arrow function no maneja su propio scope, agarra el this del padre del objeto, osea el this del contexto global  
+    console.log(this.nombre1);
+    }
+}              
+objetoThis3.imprimir(); //imprime Contexto Global, genera como un enlace entre el this de la funcion y el PADRE del this.    
+
+function Personathis (nombre1){
+    this.nombre1 = nombre1;
+    //return console.log(this.nombre1);  linea que hace que muestre Gra
+    /*
+    return function (){  //retorno una nueva funcion para que me muestre en consola
+        console.log(this.nombre1); //GENERA UN NUEVO SCOPE DONDE NO ESPECIFIQUE this.nombre!!! me devuelve Contexto Global
+    }*/
+    return () => console.log(this.nombre1); //muestra Gra otra vez!!! porque la arrow function me devuelve el this. nombre del padre, en este caso Gra
+    
+}
+let gr = new Personathis("Gra") //muestra Gra porque genera su propio scope donde defini nombre
+gr();  //ejecuto gr como metodo porque la funcion Personathis retorna una una funcion
+//gr() muestra Contexto Global si a la funcion la escribo como funcion anonima, si la escribo como arrow function retorna Gra
+
+
+
