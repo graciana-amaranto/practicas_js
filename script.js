@@ -681,5 +681,58 @@ let gr = new Personathis("Gra") //muestra Gra porque genera su propio scope dond
 gr();  //ejecuto gr como metodo porque la funcion Personathis retorna una una funcion
 //gr() muestra Contexto Global si a la funcion la escribo como funcion anonima, si la escribo como arrow function retorna Gra
 
+//call, apply, bind
 
+this.lugar = "Contexto Global";
+
+function saludothis(palabraSaludo, aQuien){
+    console.log(`${palabraSaludo} ${aQuien} desde el ${this.lugar}`);  
+}
+
+//saludo() muestra Contexto Global
+
+const objLugar = {
+    lugar: "Contexto Objeto"
+}
+
+saludothis.call(objLugar, "Hola", "Graciana"); //call me trae a qué esta apuntando el this: this.lugar -> apunta al lugar del objeto   
+//muestra Hola Graciana desde el contexto objeto
+
+saludothis.call(null, "Hola", "Graciana"); //vuelvo al contexto global
+saludothis.call(this,  "Hola", "Graciana"); //tambien muestra contexto global
+
+this.nombre = "window";
+const personaBind = {
+    nombre: "tere",
+    saludar: function (){
+        console.log(`Holaaaaaaaaaaaaa ${this.nombre}`);
+    }
+}
+
+personaBind.saludar() //muestra hola tere
+
+
+
+const otraPersonaBind = {
+    saludar: personaBind.saludar.bind(personaBind)  //saludar: personaBind.saludar() sin bind me muestra hola undefined porque no tengo un this en el obj al que hacer referenecia
+  //personaBind.saludar.bind(personaBind) enlaza el contexto de la propiedad que le indico, en este caso saludar() que tiene un this.nombre que apunta a tere
+} 
+otraPersonaBind.saludar() //muestra hola tere 
+//si hago saludar: personaBind.saludar.bind(this) me muestra hola window porque el this me toma el contexto global (la variable por fuera)
+
+//JSON: funciona como un intercambio ligero de intercambio de datos
+
+
+//.parse() analiza una cadena de texto como JSON, transformandolo en un formato válido de objeto
+console.log(JSON.parse("{}")); 
+console.log(JSON.parse("[1,2,3]"))  
+//si analizo una cadena de texto escrita como JSON lo convierte en un objeto PRIMITIVO DE JS.
+//console.log(JSON.parse("Hola Mundo")) //da error porque no es un objeto valido
+
+
+//.stringify() convierte un objeto o valor de JavaScript en una cadena de texto JSON
+console.log(JSON.stringify({})); 
+console.log(JSON.stringify([1,2,3])); //muestra como cadena de texto "[1,2,3]}"  
+
+console.log(JSON.stringify({ x: 2, y: 3})); //muestra {"x":2,"y":3} con las comillas como notacion JSON
 
