@@ -69,6 +69,9 @@ console.log($linkDOM.getAttribute("data-id")); //muestra 1
 $linkDOM.removeAttribute("data-id") //remuevo el atributo data-id
 console.log($linkDOM.getAttribute("data-id")); //no existe, muestra null
 
+
+//******************************************************************* */
+
 //DOM: Estilos y variables en CSS
 //acceder a variables CSS:
 
@@ -85,7 +88,7 @@ $body.style.color = varYellowColor;
 
 //si quiero modificar alguna variable
 
-$html.style.setProperty("--dark-color", "pink"); //lo defino en el html pero todavia se ve negro
+$html.style.setProperty("--dark-color", "#000"); //lo defino en el html pero todavia se ve negro
 varDarkColor = getComputedStyle($html).getPropertyValue("--dark-color");  //accedo de nuevo a dark color que ahora tiene "pink"
 
 $body.style.setProperty("background-color", varDarkColor); //ahora si me pone el fondo rosa
@@ -112,6 +115,29 @@ $card.classList.replace("rotate-45", "rotate-135");
 //puedo agregar y quitar mas de una clase a la vez
 $card.classList.add("opacity-80", "sepia");
 $card.classList.remove("opacity-80", "sepia")
+
+//***************************************************** */
+
+//DOM: Texto y HTML
+const $whatIsDOM = document.getElementById("que-es");  //como es un id, no uso querySelector
+
+let text = `
+    <p> 
+    Es el Modelo de Objetos del Documento ( <b> <i> DOM - Document Object Model </i> </p>) es una API para
+    documentos HTML y XML.
+    </p>
+    <p> Este provee  una representacion estructural del documento, permitiendo modificar su contenido
+    y presentacion visual mediante codigo JS.
+    </p>
+    <p>
+    <mark> El DOM no es parte de la especificacion de JS, es una API para los navegadores. </mark>
+    </p>
+`;
+
+//ahora quiero modifucar el contenido del selector que-es y reemplazarlo por el texto
+$whatIsDOM.textContent = text; //me reemplaza pero no reconoce los <b>, los imprime tal cual
+$whatIsDOM.innerHTML = text; //reemplaza el texto y reconoce las etiquetas que le puse. 
+$whatIsDOM.outerHTML = text;  //reeplaza todo el <p id="que-es"> por los tres <p>
 
 
 
