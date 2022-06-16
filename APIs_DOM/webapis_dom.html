@@ -8,8 +8,13 @@
 
     <style>
         :root {
-            --yellow-color: #f7df1e;
+            --yellow-color: #000;
             --dark-color: #222;
+        }
+
+        .cards {
+            border: thin solid #000;
+            padding: 1rem;
         }
 
         .card {
@@ -37,6 +42,25 @@
         .sepia {
             filter: sepia(1);
         }
+
+        .eventos-flujo div {
+            padding: 4rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .uno {
+            background-color: darkred;
+        }
+
+        .dos {
+            background-color: red;
+        }
+
+        .tres {
+            background-color: lightpink;
+        }
+
 
     </style>
 
@@ -78,9 +102,35 @@
             <img src="https://placeimg.com/200/200/nature" alt="Nature" >
             <figcaption>Nature</figcaption>
         </figure>
-        
     </section>
+    <template id="template-card">
+        <figure class="card">
+            <img>
+            <figcaption></figcaption>
+        </figure>
+    </template>
+    <h3>Eventos en Javascript</h3>
+    <h4>Manejadores de eventos</h4>
+    <button onclick="holaMundo()" >Evento con atributo HTML </button><br><br>
+    <button id="evento-semantico">Evento con manejador semantico</button>
+    <br><br>
+    <button id="evento-multiple">Evento con manejador multiple</button>
+    <br><br>
+    <button id="evento-remover">Removiendo eventos con manejadores multiples</button>
+    <br><br>
+    <section class="eventos-flujo">
+        <div class="uno">
+            1
+            <div class="dos">
+                2
+                <div class="tres">
+                    3
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="/APIs_DOM/apis_dom.js "></script>
 </body>
-<script src="/APIs_DOM/apis_dom.js "></script>
+
 
 </html>

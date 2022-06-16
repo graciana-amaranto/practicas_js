@@ -88,7 +88,7 @@ $body.style.color = varYellowColor;
 
 //si quiero modificar alguna variable
 
-$html.style.setProperty("--dark-color", "#000"); //lo defino en el html pero todavia se ve negro
+$html.style.setProperty("--dark-color", "white"); //lo defino en el html pero todavia se ve negro
 varDarkColor = getComputedStyle($html).getPropertyValue("--dark-color");  //accedo de nuevo a dark color que ahora tiene "pink"
 
 $body.style.setProperty("background-color", varDarkColor); //ahora si me pone el fondo rosa
@@ -139,15 +139,279 @@ $whatIsDOM.textContent = text; //me reemplaza pero no reconoce los <b>, los impr
 $whatIsDOM.innerHTML = text; //reemplaza el texto y reconoce las etiquetas que le puse. 
 $whatIsDOM.outerHTML = text;  //reeplaza todo el <p id="que-es"> por los tres <p>
 
+/********************************************************************* */
+
+//DOM Traversing: Recorriendo el DOM
+//Son una serie de propiedades que nos da el API del DOM para poder recorrer los elementos (etiquetas HTML).
+
+const $cards = document.querySelector(".cards");  //selecciono todas las cards --> <section class="cards">
+
+console.log($cards.children); //muestra un HTML Collection con todas las cards
+console.log($cards.children[2]);  //me muestra la 3ra figura: people
+
+console.log($cards.parentElement) //muestra el body
+
+console.log($cards.firstElementChild);  //muestra la primera card "tech"
+console.log($cards.lastElementChild);   //muestra la primera card "nature"
+
+console.log($cards.previousElementSibling);  //muestra el hermano q esta antes, osea el "a"
+console.log($cards.nextElementSibling);     //muestra el hermano q esta despues, osea el "script"
+
+console.log($cards.closest("body"))   //cual es el body mas cercano?
+console.log($cards.children[3].closest("section")) //si quiero preguntar desde algun elem en especifico
+
+/******************************************************************* */
+
+//DOM: Creando Elementos y Fragmentos 
+
+//quiero crear y agregarle una nueva card a mi <section class="cards"> que ya tiene 5.
+
+const $figure = document.createElement("figure"),  //crea un elem etiqueta <figure>
+$img = document.createElement("img"),
+$figcaption = document.createElement("figcaption"),
+$figcaptionText = document.createTextNode("Animals"),
+$cards1 = document.querySelector(".cards");  //selecciono .cards
+//los elem estan creados pero tengo que agregarlos al DOM para que se vean:
+
+//img necesita si o si un src y un alt
+$img.setAttribute("src", "https://placeimg.com/200/200/animals");
+$img.setAttribute("alt", "Animals");
+
+//figcaption lleva un texto
+$figcaption.appendChild($figcaptionText);
+
+//figure lleva un img y un figcaption
+$figure.appendChild($img);
+$figure.appendChild($figcaption);
+
+//le agreago a figure una clase "card" para q se vea igual que los demas
+$figure.classList.add("card");
+
+$cards1.appendChild($figure); //finalmente le agrego a cards una figure nueva con todos sus elem dentro.
+
+//otra forma de hacerlo con innerHTML:
+const $figure2 = document.createElement("figure");
+
+$figure2.innerHTML = ` 
+    <img src = "https://placeimg.com/200/200/people" alt= "People" >  
+    <figcaption>People</figcaption>
+    `;
+
+$figure2.classList.add("card"); 
+$cards1.appendChild($figure2);   ///de esta forma me ahorro tener q hacer lo q hice en 176
+
+//otro ejemplo
+
+const estaciones = ["Primavera", "Verano", "Otoño", "Invierno"],
+    $ul = document.createElement("ul");
+
+document.write("<h3> Estaciones del año </h3>");
+document.body.appendChild($ul);
+
+estaciones.forEach(el => {
+    const $li = document.createElement("li");
+    $li.textContent = el;  //que ponga dentro del li "primavera"
+    $ul.appendChild($li);  //agrega ese li dentro del  ul que cree
+});
+
+const continentes = ["Africa", "America", "Asia", "Europa", "Oceania"],
+    $ul2 = document.createElement("ul")
+;    
+
+document.write("<h3> Continentes del mundo </h3>");
+document.body.appendChild($ul2);
+
+$ul2.innerHTML = "";   //si quiero usar el innerHTML, tengo q inicializarlo en ""
+continentes.forEach( el => {$ul2.innerHTML += `<li> ${el} </li> `}); //pongo += para que me agregue cada <li> ${el} </li>  de la iteracion, sino solo me muestra el ultimo 
+
+//fragmemtos: si mi arreglo o registro tiene muchos elementos y hago una incersion de cada uno en el DOM, impacta en el funcionamiento.
+//para eso creo un fragmento en donde haga todas las incersiones dentro, y solo agrego un solo elemento al DOM (el fragmento)
+
+const meses = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre"
+],
+    $ul3 = document.createElement("ul"),
+    $fragment = document.createDocumentFragment()
+;
+
+meses.forEach(el => {
+    const $li = document.createElement("li");
+    $li.textContent = el;
+    $fragment.appendChild($li);  //agrego cada li al fragment en lugar de al ul
+
+});
+
+document.write("<h3> Meses del año </h3>");
+$ul3.appendChild($fragment);   //cuando termino de recorrer agrego el fragment al ul
+document.body.appendChild($ul3);
+
+/*************************************************************** */
+
+//DOM: Templates HTML: no se renderizan en el DOM. Sirven como modelos a seguir para despues replicarlos.
+
+const $cardss = document.querySelector(".cards"),
+    $template = document.getElementById("template-card").content,
+    $templateFragment = document.createDocumentFragment(),
+    cardContent = [
+        {
+            title: "Tecnologia",
+            img: "https://placeimg.com/200/200/tech"
+        },
+        {
+            title: "Animales",
+            img: "https://placeimg.com/200/200/animals"
+        },
+        {
+            title: "Arquitectura",
+            img: "https://placeimg.com/200/200/arch"
+        },
+        {
+            title: "Gente",
+            img: "https://placeimg.com/200/200/people"
+        },
+        {
+            title: "Naturaleza",
+            img: "https://placeimg.com/200/200/nature"
+        }
+    ];
+
+cardContent.forEach(el => {
+    $template.querySelector("img").setAttribute("src", el.img);
+    $template.querySelector("img").setAttribute("alt", el.title);
+    $template.querySelector("figcaption").textContent = el.title;
+
+    let $clone = document.importNode($template, true)
+    $templateFragment.appendChild($clone);
+});
+
+$cardss.appendChild($templateFragment);
+
+/******************************************************************** */
+
+//DOM: Modificando elementos con insertAdjacent/posiciones:
+
+/* 
+.insertAdjacent...
+    .insertAdjacentElement(position, el)  -->seria como un appendChild
+    .insertAdjacentHTML(position, html) --> seria como un .innerHTML
+    .insertAdjacentText(position, text)  -->seria como un textContent
+
+Posiciones:
+    beforebegin (hermano anterior)
+    afterbegin (primer hijo)
+    beforeend (ultimo hijo)
+    afterend (hermano siguiente)
+*/
+
+const $cards0 = document.querySelector(".cards"),
+    $newCard = document.createElement("figure"),
+    $newCard2 = document.createElement("figure");
+
+$newCard.innerHTML = `
+    <img src= "https://placeimg.com/200/200/any" alt="Any" >
+    <figcaption>Any</figcaption>
+`;
+
+$newCard.classList.add("card");
+$cards0.insertAdjacentElement("afterbegin", $newCard);
+
+let $contentCard = `
+    <img src= "https://placeimg.com/200/200/any" alt="Any" >
+    <figcaption></figcaption>
+`;
+
+$newCard2.insertAdjacentHTML("afterbegin", $contentCard);  //inserta el html de content card
+$newCard2.querySelector("figcaption").insertAdjacentText("afterbegin", "Any"); //agrego el contenido del figcaption que estaba vacio
+
+$cards0.insertAdjacentElement("beforeend", $newCard2) //agrego la segunda tarjeta a cards
+
+/******************************************************************** */
+
+//DOM: Manejador de eventos: hay 3 maneras de definir los manejadores de eventos:
+
+//evento como atributo del HTML (no es lo correcto)
+function holaMundo() {
+    alert("Hola mundo");
+    console.log(event)
+}
+
+//como un manejador de eventos (la funcion que se ejecuta en ese evento)
+
+const $eventosemantico = document.getElementById("evento-semantico");
+
+$eventosemantico.onclick = holaMundo; //SIN LOS PARENTESIS 
+$eventosemantico.onclick = function(e){
+    alert("Hola mundo Manejador de eventos semanticos");
+    console.log(e); //e de event
+} //el limitante que tiene esta forma, es que solo le podes asignar una sola funcion. 
+//a $eventosemantico le asigne 2 funciones, pero solo va a ejecutar la ultima.
+
+//como manejadores multiples: puedo ejecutar varias funciones a la vez.
+
+const $eventomultiple = document.getElementById("evento-multiple");
+$eventomultiple.addEventListener("click", holaMundo); //tambien sin el ()
+
+$eventomultiple.addEventListener("click", (e) => {
+    alert("Hola mundo manejador de eventos multiple");  //puedo hacerlo directamente con arrow function
+    console.log(e);
+    console.log(e.type);  //muestra pointer event 
+    console.log(e.target); //muestra el HTML del boton donde cree el evento <button id="evento-multiple">Evento con manejador multiple</button>
+});
+
+//Eventos con parametros y remover eventos 
+
+function saludar(nombre = "Desconocid@"){
+    alert(`Hola ${nombre}`);
+}
+
+$eventomultiple.addEventListener("click", () => saludar("Graciana"));  //creo una arrow function anonima que funcione como manejadora
+//esta arrow function tiene saludar() adentro, porque si lo pongo directamente no me toma los parámetros.
+
+//eliminar eventos
+const $eventoremover = document.getElementById("evento-remover");
+
+const removerDobleClick = (e) => {  //si o si tengo que hacer una funcion declarativa porque removeEventListener me la pide como parámetro
+    alert(`Removiendo el evento del tipo ${event}`);
+    $eventoremover.removeEventListener("dblclick", removerDobleClick);
+    $eventoremover.disabled = true; 
+}
+
+$eventoremover.addEventListener("dblclick", removerDobleClick);
+
+/********************************************************************* */
+
+//DOM: Flujo de Eventos (Burbuja y Captura)
+//el flujo de eventos de burbuja se propaga del mas interno al mas externo.
+//el flujo de captura el evento se propaga del mas externo al mas interno.
+
+const $divsEventos = document.querySelectorAll(".eventos-flujo div");
+console.log($divsEventos);
+
+function flujoEventos(e) {
+    console.log(`Hola te saluda ${this.className}, el click lo originó ${e.target.className}`); //el .this aca hace referencia al div del momento
+} 
+
+$divsEventos.forEach(div => {
+    //fase de burbuja: muestra "Hola te saluda uno, el click lo originó tres" si hago click en el 3
+    div.addEventListener("click", flujoEventos); //hago un addeventlistener para todos los divs en lugar de hacerlos x separado
+    //fase de captura: solo tengo q agregar true como tercer parametro
+    div.addEventListener("click", flujoEventos, {
+        capture: true,
+        once: true    //once:true si quiero que el evento se ejecute UNA SOLA VEZ. (menos engorroso que usar removeEventListener)
+    });
+});  
 
 
-
-
-
-
-
-
-
-
-
+/********************************************************************* */
 
