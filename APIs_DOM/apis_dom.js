@@ -395,6 +395,7 @@ $eventoremover.addEventListener("dblclick", removerDobleClick);
 //el flujo de eventos de burbuja se propaga del mas interno al mas externo.
 //el flujo de captura el evento se propaga del mas externo al mas interno.
 
+
 const $divsEventos = document.querySelectorAll(".eventos-flujo div");
 console.log($divsEventos);
 
@@ -402,16 +403,61 @@ function flujoEventos(e) {
     console.log(`Hola te saluda ${this.className}, el click lo originó ${e.target.className}`); //el .this aca hace referencia al div del momento
 } 
 
+/*
 $divsEventos.forEach(div => {
     //fase de burbuja: muestra "Hola te saluda uno, el click lo originó tres" si hago click en el 3
     div.addEventListener("click", flujoEventos); //hago un addeventlistener para todos los divs en lugar de hacerlos x separado
     //fase de captura: solo tengo q agregar true como tercer parametro
+    
     div.addEventListener("click", flujoEventos, {
         capture: true,
         once: true    //once:true si quiero que el evento se ejecute UNA SOLA VEZ. (menos engorroso que usar removeEventListener)
-    });
-});  
+    });  */
 
 
 /********************************************************************* */
+
+//DOM: stopPropagation & preventDefault
+
+const $linkEventos = document.querySelector(".eventos-flujo a");
+
+
+function flujoEventos2(e) {
+    console.log(`Hola te saluda ${this.className}, el click lo originó ${e.target.className}`);
+    e.stopPropagation();  //en lugar de que se ejecute hasta el mas externo, solo se ejecuta el primer evento.
+}
+/*
+$divsEventos.forEach(div => { //foreach porque son varios div
+    div.addEventListener("click", flujoEventos2);
+});
+
+$linkEventos.addEventListener("click", (e) => {
+    alert("Hola me llamo graciana :D")
+    e.preventDefault();   //esto frena el comportamiento que tiene por default, en este caso al hacer click a un link, me lleva a esa pagina
+    e.stopPropagation();  //freno el evento del div que tambien se ejecuta al hacer click al link
+     
+});  //otro ejemplo seria que frene el procesamiento de un formulario, o que no suba y baje el scroll con la rueda. Todos estos son comportamientos x default.
+*/
+/********************************************************************* */
+
+//DOM: Delegación de Eventos: Tengo un solo evento en donde elijo espeficicamente cual nodo quiero que lo ejecute. Esto tambien evita la propagacion de los eventos.
+
+document.addEventListener("click", (e) => {  //asigno el evento al documento
+    console.log("Click en ", e.target);  
+
+    if (e.target.matches(".eventos-flujo div")){
+        flujoEventos2(e);
+    } //ya no necesito el stopPropagation porque el eventListener esta asociado al document, y no hay nada externo a este. 
+
+    if (e.target.matches(".eventos-flujo a")){
+        alert("Hola soy graciana :D")
+        e.preventDefault() //para que no se abra el link (comportamiento default)
+    } //ya no necesito el stopPropagation porque el eventListener esta asociado al document, y no hay nada externo a este. 
+
+});
+/*
+En resumen: es mejor hacer un addEventListener al document y dentro, con if, indicarle a cuales etiquetas quiero que respondan este evento
+y dentro de este if, cargar las funciones que necesito. 
+Como el addeventlistener esta en el document, no necesito el stopPropagation ni crear variables ni usarlas (como $linkEventos). 
+*/ 
 
