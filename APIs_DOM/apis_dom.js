@@ -461,3 +461,46 @@ y dentro de este if, cargar las funciones que necesito.
 Como el addeventlistener esta en el document, no necesito el stopPropagation ni crear variables ni usarlas (como $linkEventos). 
 */ 
 
+
+/********************************************************************** */
+
+//BOM: Browser Object Model: Métodos
+
+const $btnAbrir = document.getElementById("abrir-ventana"),
+    $btnCerrar = document.getElementById("cerrar-ventana"),
+    $btnImprimir = document.getElementById("imprimir-ventana")
+;
+
+let ventana;
+
+$btnAbrir.addEventListener("click", e => {
+    ventana = open("https://google.com")   //guardo en una variable la pagina que se abre
+});
+$btnCerrar.addEventListener("click", e => {
+    ventana.close()  //se cierra la ventana con la pagina que guarde (google.com)
+}); 
+$btnImprimir.addEventListener("click", e => {
+    window.print()
+});
+
+
+/********************************************************************** */
+ 
+//BOM: Objetos: URL
+
+/*
+location:
+
+location.origin  muestra http://127.0.0.1:5500/
+location.protocol   muestra http:
+location.host    muestra 127.0.0.1  pero seria el dominio www.youtube.com
+location.hostname   muestra el dominio www.youtube.com
+location.port         muestra 5500
+location.href  muestra http://127.0.0.1:5500/APIs_DOM/webapis_dom.html
+location.hash  si tuviera una pagina incluida por ej "contacto" mostraria #contacto
+location.search  si tengo parametros en mi url por ejemplo http://127.0.0.1:5500/APIs_DOM/webapis_dom.html?nombre=Gra&Edad=26, mostraría los parametros ?nombre=Gra&Edad=26
+location.pathname  muestra webapis_dom.html
+location.reload  recarga la pagina
+
+*/
+
