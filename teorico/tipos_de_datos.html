@@ -1,0 +1,330 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementos basicos</title>
+    <link rel="shortcut icon" href="favicon.svg">
+</head>
+<body>
+    <h1>Fundamentos de JavaScript</h1>
+
+    <script>
+
+        /* como practica general, para declarar debo usar
+        para identificadores: la letra o, $, _
+        para nombres de archivos: snake_case
+        para constantes: UPPER_CASE
+        clases: UpperCamelCase
+        objetos, primitivos funciones e instancias: lowerCamelCase
+        
+        ordenamiento de codigo:
+        1.IMPORTACIÓN DE MÓDULOS.
+        2.DECLARACIÓN DE VARIABLES.
+        3.DECLARACIÓN DE FUNCIONES.
+        4.EJECUCIÓN DE CÓDIGO.
+
+        Primitivos: Se accede directamente al valor.
+        string
+        number
+        boolean
+        null
+        undefined
+        NaN
+
+        Compuestos: Se accede a la referencia del valor.
+        object = {}
+        array = []
+        function () { }
+        Class {}
+        etc.
+        */
+
+        //clase 1: Tipos de datos
+        
+        //var vs let
+        var musica = "rock"; //scope global, mala practica
+
+        let musica2 = "rock";
+        console.log("variable musica antes del bloque", musica2);
+        {
+            let musica2 = "pop"; //let respeta los scopes, genera variables de bloque
+            console.log("variable musica dentro del bloque", musica2); //muestra pop
+        }
+        console.log("variable musica despues del bloque", musica2); //muestra rock
+
+        //const
+        const PI = 13.1416; //accedo al valor directamente, no puedo cambiarlo
+        //PI = 15; asignar un nuevo valor a pi sería un error
+
+        const objeto = {
+            nombre: "graciana",
+            edad: "25"
+        }
+        const colores = ["rojo", "negro", "azul"];
+
+        console.log(objeto);
+        console.log(colores);
+
+        objeto.apellido = "amaranto";
+        colores.push("verde");
+        
+        console.log(objeto);
+        console.log(colores);
+        // usando const no puedo cambiar los valores de datos PRIMITIVOS, pero si de datos COMPUESTOS.
+        //esto es por que sigue siendo una constante (es el mismo objeto y el mismo array), pero con mas propiedades.
+        
+        //strings
+        //propiedades son caracteristicas y metodos son acciones
+        let nombre = "graciana";
+        let apellido = "amarANTo";
+        let lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean venenatis dictum justo, id vestibulum nunc egestas quis. Nunc varius enim dolor. Quisque ultricies, diam ut dignissim ultricies, ex quam elementum leo, in vulputate ex neque ac erat. Integer aliquet lectus nec lacus vehicula tempus. Cras eu tristique purus."
+
+        console.log(nombre, apellido, lorem);
+        console.log(
+            nombre.length,
+            apellido.length,
+            nombre.toUpperCase,  //metodos: son las acciones que puedo hacer
+            apellido.toLowerCase,
+            lorem.includes("elit"), //busca si existe la palabra que elegi
+            lorem.trim(),  //borra los espacios al principio y al final, si los hay
+            lorem.split(",") //genera un array con un string cada vez que encuentra una coma
+        )
+        let nombre1 = "lucia";
+        let apellido1 = "rodriguez";
+
+        //concatenacion
+        let saludo = "hola, mi nombre es " + nombre1 + " " + apellido1 + ".";
+        console.log(saludo);
+
+        //interpolacion de variables: template string
+        let saludo2 = `Hola, mi nombre es ${nombre1} ${apellido1}.` //comilla invertida
+        console.log(saludo2);
+
+        let ul = `
+        <ol>
+            <li>verano</li>
+            <li>otoño</li>
+            <li>inverno</li>
+            <li>primavera</li>
+        </ol>`;
+        console.log(ul);  //puedo usarlas para strings con saltos de pagina
+
+        //numeros 
+        let c = 7.19;
+        c.toFixed(1); //7.2
+        c.toFixed(5); //7.19000
+        console.log(parseInt(c)); //7 -> toma solo el entero
+
+        //booleanos
+        let verdadero =  true;
+        let falso = false;
+         
+         //null, undefined, NaN
+        let indefinida; //undefined: no se le asigno/inicializo un valor a la variable
+        let nulo = null; //esta vacia pero intencionalmente le asigno el valor vacio
+
+        //funcion declarada
+        function unaFuncion() {
+            let h = 1;
+            let w = 2;
+            let x = w + h;
+
+            return x; 
+        }   
+        unaFuncion(); //invocacion de la funcion
+        let resultado = unaFuncion;
+
+        function saludar(nombre = "desconocido", edad = 0){  //parametros de la funcion - valores por defecto
+            console.log(`Hola mi nombre es ${nombre} y tengo ${edad} años.`);
+        }
+        saludar("leona", 7);
+
+        //funcion anonima expresada
+        const funcionExpresada = function () {
+             let funEx = "Esta es una funcion al  que se le ha asignado un valor a una variable. "
+             let funEx2 = "No puedo llamarla antes de crearla, me da error."
+        }
+        funcionExpresada();
+
+        //arrays
+        const a = [];
+        const b = [1, true, "Hola", ["A", "B", "C"]];
+
+        console.log(b.length); //tiene 4 elementos
+        console.log(b[3][2]); //accede al array dentro del array
+
+        const d = Array(100).fill(false); //crea un array de 100 elem, todos false.
+
+        const colores2 = ["Rojo", "Verde", "Azul"];
+        colores2.push("Negro"); //agrega un elem. al array
+        colores2.pop(); //quita un elem al array
+
+        colores2.forEach(function (el, index){
+            console.log(`<li id="${index}">${el}</li>`) //"para cada elemento del array, agrega un <li></li> con el indice de cada elem."
+        });
+
+        //objetos: a las variables ej:"nombre", "apellido" se les llama atributos/propiedades
+        //y a las funciones se les llama métodos. 
+         const miObjeto = {
+             nombre: "graciana",
+             apellido: "amaranto",
+             edad: 25,
+             pasatiempos: [1,2,3],
+             casada: false,
+             conctacto: { //objeto dentro de un objeto
+                 email: "kjfdksjf",
+                 twitter: "jfsjfs",
+                 numero: 1784121 
+             },
+             saludar: function(){
+                 let t = "hola";  //funcion dentro de un objeto
+             },
+             decirMiNombre: function(){
+                 console.log(`Hola, ni nombre es ${this.nombre} ${this.apellido} y tengo ${this.edad} años.
+                 y puedes seguirme como ${this.conctacto.twitter} en twitter. ` )
+             }
+         }
+         console.log(miObjeto.nombre); //acceder a un atributo del objeto 
+         console.log(miObjeto.pasatiempos[1]);
+         miObjeto.decirMiNombre(); //llama la funcion dentro del objeto
+
+         console.log(Object.keys(miObjeto)); //muestra los nombres de las variables "nombre" "apellido" "edad"
+         
+         //ciclo forin
+         for (const propiedad in miObjeto){ //"propiedad = key" este ciclo se usa para objetos especificamente
+            console.log(`Key: ${propiedad}, value: ${miObjeto[propiedad]}`) //me muestra todas las variables del objeto como Object.key y sus respectivos valores
+         }
+         
+         console.log(Object.values(miObjeto)); //muestra los valores de cada variable "graciana" "amaranto" "25"
+         
+         //ciclo forof
+         for (const elemento of b) {  //b es un array, este ciclo sirve para recorrer arrays o cadenas de strings
+             console.log(elemento);    //recorre cada elemento del array "b"         
+         }
+
+
+         console.log(miObjeto.hasOwnProperty("nombre")); //tiene la propiedad nombre? en consola muestra TRUE
+         console.log(miObjeto.hasOwnProperty("nacimiento")); //muestra en consola FALSE
+
+         //manejo de errores
+         
+         try {
+            let valor = "y";
+             if(isNaN(valor)){
+                 throw new Error("el valor introducido debe ser un número")
+
+                 console.log(valor*valor);
+             }
+         } catch (error) {
+             console.log(`se produjo el siguiente error: ${error}`);
+         }
+        
+         //break y continue
+         let numeros1 = [1,2,3,4,5,6,7,8,9,0];
+
+         for (let i = 0; i < numeros1.length; i++) {
+             if(i===5){
+                 break; //muestra en consola 12345
+             }
+             console.log(numeros1[i]);
+         }
+         for (let i = 0; i < numeros1.length; i++) {
+             if(i===5){
+                 continue; //muestra en consola 123457890
+                 //me saltea la iteracion que sigue desp del 5, en este caso el 6
+             }
+             console.log(numeros1[i]);
+         }
+
+         //destructuracion 
+         const num = [1,2,3];
+
+         let [uno, dos, tres] = num; //separar cada elemento del array en variables diferentes
+         console.log(uno, dos, tres); //entre corchetes porque estoy creando variables de un array
+
+         const persona = {
+            name: "graciana",
+            surname: "amaranto",
+            age: 25
+         }
+
+         let {n, s, ag} = persona; //entre llaves porque estoy creando variables de un objeto
+        
+         //objetos literales
+         let nombre3 = "leona",
+         edad3 = 6;
+
+         const gato = {
+             nombre3: nombre3,
+             edad3: edad3,
+             maullar: function(){
+                 console.log("miau miau")
+             }
+         }
+
+         const cat = {
+             nombre3,  //para no repetir los nombres, pongo directamente el nombre de la propiedad
+             edad3,  //solo si la propiedad y el valor TIENEN EL MISMO NOMBRE
+             raza: "siames",
+             maullar (){
+                 console.log("miau miau miau")
+             }
+         }
+
+         console.log(cat);
+         cat.maullar();
+
+        function sumar(a, b, ...c){  //...c parámetro rest: cuando no se cuantos valores voy a recibir 
+             let resultado = a + b;
+
+             c.forEach(function(n){ //toma a c como un array con x cantidad de elem, por eso uso forEach
+             resultado += n;
+            })
+            return resultado
+        }
+        console.log(sumar(1, 2, 3, 4, 5 ,6, 7))
+         
+        const arr1 = [1, 2, 3, 4, 5],
+         arr2 = [6, 7, 8, 9, 0]
+
+        const arr3 = [arr1, arr2] //sin los puntos, me muestra [Array(5), Arrray(5)]
+        //yo quiero ver los valores, no "array(5)"
+         const arr33 = [...arr1, ...arr2]; //con ... me muestra [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+
+        //arrow function 
+        
+        /*const saludar = function() {  //funcion expresada 
+            console.log("hola");
+        }
+        saludar(); */
+
+        const saludarr = () => console.log("Hola"); //arrow function ver 
+        saludarr()
+
+        const saludarrr = nombre => console.log(`Hola ${nombre}`); //no es necesario poner () en el parametro "nombre"
+        saludarrr("Lucia");
+
+        /* 
+        const sumar = function (a,b){
+            return a+b;
+        }
+        */
+       const sumarrrr = (a, b) => a + b; //function y return implicitos
+       console.log(sumar(9,9));
+
+       const funcionDeVariasLineas = () => {
+           //linea1
+           //linea2
+           //linea3
+       }
+       funcionDeVariasLineas();
+
+       const nuum = [1, 2, 3, 4, 5];
+
+       nuum.forEach((elem, index) => console.log(`${elem} esta en la posicion ${index}`));
+
+    </script>
+    <script src="/js/script.js"></script>
+</body>
+</html>
