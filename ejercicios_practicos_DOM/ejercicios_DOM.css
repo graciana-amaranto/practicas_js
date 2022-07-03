@@ -68,15 +68,17 @@ img {
     right: 0;
     width: 100%;
     background-color: var(--second-modal-color);
-    transition: transform .3s ease;
+    opacity: 0;
+    transition: transform .3s ease, opacity 0.5s ease;
     transform: translate(0,-100%);  /*escondo el menu arriba del todo x:0 y y:-100%*/
 }
 
 .panel.is-active{
     transform: translate(0,0);  /*cuando el panel se muestra, lo muevo al medio*/
+    opacity: 1;
 }
 
-.panel-btn{
+.panel-btn {
     position: fixed;
     z-index: 999;
     bottom: 1vh;
@@ -91,10 +93,6 @@ img {
     background-color: var(--main-color);
 }
 
-.hamburguer {
-    background-color: var(--main-color);
-    padding: 0;
-}
 
 .menu {
     width: inherit;
