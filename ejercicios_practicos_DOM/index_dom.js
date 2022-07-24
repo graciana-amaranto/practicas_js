@@ -6,6 +6,7 @@ import scrollTopButton from "./boton_scroll.js";
 import darkTheme from "./tema-oscuro.js";
 import responsiveMedia from "./objeto_responsive.js";
 import responsiveTester from "./prueba_responsive.js";
+import userDeviceInfo from "./deteccion_dispositivos.js";
 
 const d = document;
 
@@ -30,6 +31,7 @@ d.addEventListener("DOMContentLoaded", (e) =>{
         2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a30709605c93%3A0x2600fae14082f052!2sLa%20Barceloneta%2C%20Barcelona%2C%20
         Espa%C3%B1a!5e0!3m2!1ses!2sar!4v1658542902904!5m2!1ses!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`);
     responsiveTester("responsive-tester");
+    userDeviceInfo("user-device");
 });  //no necesito poner #coundown porque uso getElementById
 
 d.addEventListener("keydown", e =>{
