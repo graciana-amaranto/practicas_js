@@ -7,6 +7,7 @@ import darkTheme from "./tema-oscuro.js";
 import responsiveMedia from "./objeto_responsive.js";
 import responsiveTester from "./prueba_responsive.js";
 import userDeviceInfo from "./deteccion_dispositivos.js";
+import networkStatus from "./deteccion_red.js";
 
 const d = document;
 
@@ -41,3 +42,4 @@ d.addEventListener("keydown", e =>{
 
 darkTheme(".dark-theme-btn", "dark-mode"); //saco esta funcion de DOMContentLoaded porque tengo un evento igual dentro y no puede haber un mismo evento dentro de otro.
 //dark mode no existe en el html pero si en css 
+networkStatus();  //no necesita ejecutarse a la carga del doc, se va a ejecutar cuando el navegador detecte que se perdio la conexion usando la propiedad navigator.onLine

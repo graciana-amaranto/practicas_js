@@ -52,6 +52,6 @@ export default function userDeviceInfo(id){
 
     /*Redirecciones  */
     if(isMobile.android()){    //si detecta que el disp tiene android, redirige automaticamente a google.com
-        window.location.href = "https://google.com";
+        window.location.href = "#";
     }
 }
