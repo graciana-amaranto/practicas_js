@@ -8,6 +8,7 @@ import responsiveMedia from "./objeto_responsive.js";
 import responsiveTester from "./prueba_responsive.js";
 import userDeviceInfo from "./deteccion_dispositivos.js";
 import networkStatus from "./deteccion_red.js";
+import webCam from "./deteccion_webcam.js";
 
 const d = document;
 
@@ -33,6 +34,7 @@ d.addEventListener("DOMContentLoaded", (e) =>{
         Espa%C3%B1a!5e0!3m2!1ses!2sar!4v1658542902904!5m2!1ses!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`);
     responsiveTester("responsive-tester");
     userDeviceInfo("user-device");
+    webCam("webcam");
 });  //no necesito poner #coundown porque uso getElementById
 
 d.addEventListener("keydown", e =>{
