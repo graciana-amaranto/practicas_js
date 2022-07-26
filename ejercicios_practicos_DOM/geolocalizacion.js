@@ -22,10 +22,10 @@ export default function getGeolocation(id){
         <a href="https://www.google.com/maps/@${coords.latitude}, ${coords.longitude},20z" target="_blank" rel="noopener">
         Ver en Google Maps </a> `
 
-        console.log(position);
+        //console.log(position);
     }
     const error = (err) => {
-        console.log(`Error ${err.code}: ${err.message} `)
+        //console.log(`Error ${err.code}: ${err.message} `)
         $id.innerHTML =  `<p><mark>Error ${err.code}: ${err.message}</mark></p>`
     }
 
