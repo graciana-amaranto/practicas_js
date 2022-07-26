@@ -11,6 +11,7 @@ import networkStatus from "./deteccion_red.js";
 import webCam from "./deteccion_webcam.js";
 import getGeolocation from "./geolocalizacion.js";
 import searchFilter from "./filtro_busquedas.js";
+import draw from "./sorteo.js";
 
 const d = document;
 
@@ -39,6 +40,7 @@ d.addEventListener("DOMContentLoaded", (e) =>{
     webCam("webcam");
     getGeolocation("geolocation");
     searchFilter(".card-filter", ".card")
+    draw("#winner-btn", ".player");
 });  //no necesito poner #coundown porque uso getElementById
 
 d.addEventListener("keydown", e =>{
