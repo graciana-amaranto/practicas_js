@@ -9,6 +9,7 @@ import responsiveTester from "./prueba_responsive.js";
 import userDeviceInfo from "./deteccion_dispositivos.js";
 import networkStatus from "./deteccion_red.js";
 import webCam from "./deteccion_webcam.js";
+import getGeolocation from "./geolocalizacion.js";
 
 const d = document;
 
@@ -16,7 +17,7 @@ d.addEventListener("DOMContentLoaded", (e) =>{
     hamburgerMenu(".panel-btn", ".panel", ".menu a");
     digitalClock("#reloj", "#activar-reloj", "#desactivar-reloj");
     alarm("assets/alarma.mp3", "#activar-alarma", "#desactivar-alarma");
-    //countdown("countdown", "January 04, 2023 03:23:19", "Feliz Cumpleaños Graciana! ");
+    countdown("countdown", "January 04, 2023 03:23:19", "Feliz Cumpleaños Graciana! ");
     scrollTopButton(".scroll-top-btn");
     responsiveMedia(
         "youtube", 
@@ -35,6 +36,7 @@ d.addEventListener("DOMContentLoaded", (e) =>{
     responsiveTester("responsive-tester");
     userDeviceInfo("user-device");
     webCam("webcam");
+    getGeolocation("geolocation");
 });  //no necesito poner #coundown porque uso getElementById
 
 d.addEventListener("keydown", e =>{
