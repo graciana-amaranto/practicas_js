@@ -13,6 +13,7 @@ import getGeolocation from "./geolocalizacion.js";
 import searchFilter from "./filtro_busquedas.js";
 import draw from "./sorteo.js";
 import slider from "./carrusel.js";
+import scrollSpy from "./scroll_espia.js";
 
 const d = document;
 
@@ -43,6 +44,7 @@ d.addEventListener("DOMContentLoaded", (e) =>{
     searchFilter(".card-filter", ".card")
     draw("#winner-btn", ".player");
     slider();
+    scrollSpy();
 });  //no necesito poner #coundown porque uso getElementById
 
 d.addEventListener("keydown", e =>{
