@@ -14,6 +14,7 @@ import searchFilter from "./filtro_busquedas.js";
 import draw from "./sorteo.js";
 import slider from "./carrusel.js";
 import scrollSpy from "./scroll_espia.js";
+import contactFormValidations from "./validaciones_formulario.js";
 
 const d = document;
 
@@ -45,6 +46,7 @@ d.addEventListener("DOMContentLoaded", (e) =>{
     draw("#winner-btn", ".player");
     slider();
     scrollSpy();
+    contactFormValidations();
 });  //no necesito poner #coundown porque uso getElementById
 
 d.addEventListener("keydown", e =>{
