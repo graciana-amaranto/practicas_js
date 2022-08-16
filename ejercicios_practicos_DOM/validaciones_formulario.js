@@ -29,8 +29,22 @@ export default function contactFormValidations(){
                     ? d.getElementById($input.name).classList.add("is-active")
                     : d.getElementById($input.name).classList.remove("is-active");
             }
+        }
+    });
 
+    d.addEventListener("submit", e =>{
+        e.preventDefault(); //para que no envie nada cuando clickeo en "enviar"
+
+        const $loader = d.querySelector(".contact-form-loader"), //class del div con el gif 
+            $response = d.querySelector(".contact-form-response"); //class del div con el texto "los datos han sido enviados"
         
-            }
+        $loader.classList.remove("none");  //cuando hago click en enviar, se muestra el loading...
+
+        setTimeout(() => {
+            $loader.classList.add("none");  //desp de los 3 seg, desaparece 
+            $response.classList.remove("none"); //y aparece el msj "los datos han sido enviados"
+            $form.reset();
+            setTimeout(() => $response.classList.add("none"), 3000);
+        }, 3000);
     });
 }
